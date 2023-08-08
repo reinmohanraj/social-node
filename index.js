@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
@@ -14,6 +15,7 @@ dotenv.config();
 mongoose.connect("mongodb://localhost:27017/user", { useNewUrlParser: true });
 
 //middleware
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
