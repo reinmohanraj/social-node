@@ -16,7 +16,6 @@ router.post("/register", async (req, res) => {
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (error) {
-    console.log("Error in register Route : ", error);
     res.status(500).json(error);
   }
 });
@@ -30,11 +29,12 @@ router.post("/login", async (req, res) => {
       req.body.password,
       user.password
     );
-    !validPassword && res.status(400).json("Wrong Password");
+    if (!validPassword) {
+      return res.status(400).json("Wrong Password");
+    }
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    console.log("Error in Login Route : ", error);
     res.status(500).json(error);
   }
 });
